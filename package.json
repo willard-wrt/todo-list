@@ -1,0 +1,30 @@
+{
+  "name": "lint-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "watch": "webpack --watch",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willard-wrt/lint-template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/willard-wrt/lint-template/issues"
+  },
+  "homepage": "https://github.com/willard-wrt/lint-template#readme",
+  "devDependencies": {
+    "css-loader": "^6.7.3",
+    "eslint-config-wesbos": "^3.2.3",
+    "style-loader": "^3.3.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
