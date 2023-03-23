@@ -18,7 +18,7 @@ body {
   grid-row: 1 / 3;
   grid-auto-rows: max-content;
   display: grid;
-  width: 300px;
+  width: 320px;
   padding: 80px 30px;
   position: relative;
 }
@@ -33,6 +33,10 @@ body {
   margin-top: 20px;
   margin-bottom: 20px;
   background-color: white;
+}
+
+main .divider {
+  background-color: #cbd5e1;
 }
 
 #project-titles {
@@ -80,17 +84,28 @@ main {
   padding: 50px 40px;
 }
 
-#project-info {
- display: flex; 
-}
-
 #main-name {
+display: flex;
+align-items: center;
 font-size: 45px;
 font-weight: bold;
 margin-bottom: 5px;  
 }
 
+
 #main-desc {
 font-size: 25px;  
 font-style: italic;
+}
+
+#title-edit {
+  background-image: url(/src/imgs/edit.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  border: 1px dotted #cbd5e1;
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
 }
