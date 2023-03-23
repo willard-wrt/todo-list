@@ -75,3 +75,22 @@ body {
   color: #10b981;
   margin: 0px 5px;
 }
+
+main {
+  padding: 50px 40px;
+}
+
+#project-info {
+ display: flex; 
+}
+
+#main-name {
+font-size: 45px;
+font-weight: bold;
+margin-bottom: 5px;  
+}
+
+#main-desc {
+font-size: 25px;  
+font-style: italic;
+}
