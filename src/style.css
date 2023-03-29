@@ -39,9 +39,6 @@ main .divider {
   background-color: #cbd5e1;
 }
 
-#project-titles {
-  margin-bottom: 35px;
-}
 
 .project {
   font-size: 20px;
@@ -54,48 +51,54 @@ main .divider {
   background-color: whitesmoke;
 }
 
-
 #add-project:hover {
   background-color: whitesmoke;
 }
 
 #add-project-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   cursor: pointer;
 }
 
-#add-project{
+#add-project {
   display: flex;
   align-items: center;
-  font-size: 22px;
+  font-size: 20px;
   padding: 5px 15px 5px 5px;
   border-radius: 3px;
 }
 
-#add-icon{
+.add-icon {
   font-size: 30px;
   font-weight: bold;
-  color: #10b981;
   margin: 0px 5px;
 }
+
+#add-project .add-icon {
+  color: #10b981;
+}
+
+#add-task .add-icon {
+  color: #ef4444;
+}
+
 
 main {
   padding: 50px 40px;
 }
 
 #main-name {
-display: flex;
-align-items: center;
-font-size: 45px;
-font-weight: bold;
-margin-bottom: 5px;  
+  display: flex;
+  align-items: center;
+  font-size: 45px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-
 #main-desc {
-font-size: 25px;  
-font-style: italic;
+  font-size: 25px;
+  font-style: italic;
 }
 
 #title-edit {
@@ -105,7 +108,61 @@ font-style: italic;
   background-position: center;
   cursor: pointer;
   border: 1px dotted #cbd5e1;
-  width: 24px;
-  height: 24px;
+  width: 14px;
+  height: 14px;
   margin-left: 8px;
+}
+
+.todo {
+  width: max(75%, 800px);
+  margin-top: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid whitesmoke;
+  border-radius: 2px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.todo:hover {
+  transform: scale(1.005);
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  transition: all 0.1s ease-out;
+}
+
+.task-date {
+  font-size: 20px;
+}
+
+.left-todo {
+  display: flex;
+}
+
+.checkbox {
+  margin-right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgb(255, 255, 255, 0.4);
+  cursor: pointer;
+}
+
+#add-task-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+#add-task {
+display: flex;  
+align-items: center;
+cursor: pointer;
+font-size: 20px;
+padding: 5px 15px 5px 5px;
+border-radius: 3px;
+}
+
+#add-task:hover {
+background-color: #d4d4d8;  
 }
