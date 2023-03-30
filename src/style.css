@@ -14,7 +14,7 @@ body {
 }
 
 input {
- outline: none;
+  outline: none;
 }
 
 #project-sidebar {
@@ -42,7 +42,6 @@ input {
 main .divider {
   background-color: #cbd5e1;
 }
-
 
 .project {
   font-size: 20px;
@@ -87,6 +86,34 @@ main .divider {
   color: #ef4444;
 }
 
+#project-info-container {
+  display: flex;
+}
+
+#project-edit-container {
+  display: none;
+  flex-direction: column;
+}
+
+#add-task-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+#add-task-form {
+  display: none;
+  width: max(75%, 800px);
+  align-items: center;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  justify-content: space-between;
+  padding: 5px;
+  border: 1px solid whitesmoke;
+  border-radius: 2px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 
 main {
   padding: 50px 40px;
@@ -117,39 +144,45 @@ main {
   margin-left: 8px;
 }
 
-#project-edit-container {
-  display: none;
-  flex-direction: column;
-}
-
 .edit-project-details {
   width: max(75%, 800px);
-  font-size: 30px;
+  height: 40px;
+  font-size: 22px;
   border: 2px solid rgb(255, 255, 255);
-  border-radius: 4px;
+  border-radius: 2px;
   background-color: #8fadc2;
   margin: 2px;
 }
 
-.edit-project-details::placeholder {
+.edit-project-details::placeholder, .add-task-name::placeholder {
   font-style: italic;
 }
 
-#project-edit-btns {
+#project-edit-btns,
+#add-task-btns {
   display: flex;
   margin: 2px;
 }
 
-#project-edit-btns p {
+#project-edit-btns p, #add-task-btns p {
   padding: 8px;
-  margin: 2px;
+  margin: 3px;
+  cursor: pointer;
 }
 
-#project-edit-submit {
-  background-color: #10b981;
+#project-edit-btns p:hover,
+#add-task-btns p:hover {
+  transform: scale(1.05);
+  outline: 1px solid whitesmoke;
 }
 
-#project-edit-cancel {
+#project-edit-submit,
+#add-task-submit {
+  background-color: lightgreen;
+}
+
+#project-edit-cancel,
+#add-task-cancel {
   background-color: palevioletred;
 }
 
@@ -189,20 +222,39 @@ main {
   cursor: pointer;
 }
 
-#add-task-container {
-  display: flex;
-  justify-content: flex-start;
-}
-
 #add-task {
-display: flex;  
-align-items: center;
-cursor: pointer;
-font-size: 20px;
-padding: 5px 15px 5px 5px;
-border-radius: 3px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 5px 15px 5px 5px;
+  border-radius: 3px;
 }
 
 #add-task:hover {
-background-color: #d4d4d8;  
+  background-color: #d4d4d8;
+}
+
+.add-task-name {
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 2px;
+  height: 36px;
+  width: 100%;
+  font-size: 22px;
+}
+
+#add-task-btns {
+  margin-left: 15px;
+}
+
+#add-task-btns p {
+  font-size: 16px;
+}
+
+#left-add-task {
+  width: 50%;
+}
+
+#right-add-task {
+  display: flex;
 }
