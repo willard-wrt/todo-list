@@ -13,7 +13,7 @@ body {
   grid-template: minmax(100vh, 1fr) / max-content minmax(600px, 1fr);
 }
 
-input {
+input, textarea {
   outline: none;
 }
 
