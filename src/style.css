@@ -47,7 +47,14 @@ main .divider {
   font-size: 20px;
   padding: 10px;
   border-radius: 3px;
+  margin-bottom: 2px;
   cursor: pointer;
+}
+
+.project.active {
+  color: #082f49;
+  font-weight: bold;
+  background-color: whitesmoke;
 }
 
 .project:hover {
