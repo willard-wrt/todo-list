@@ -2,12 +2,17 @@ import './style.css';
 
 // console.log('webpack is working');
 const projectContainer = document.querySelector('#project-titles');
+const projectName = document.querySelector('#main-name');
+const projectDesc = document.querySelector('#main-desc');
+const editProjectName = document.querySelector('#edit-project-name');
+const editProjectDesc = document.querySelector('#edit-project-desc');
 
 const projectStorage = [];
-const createProject = (name, description) => {
-  projectStorage.push({ name, description, toDoList: [], active: true });
+const createProject = (name, desc) => {
+  projectStorage.push({ name, desc, toDoList: [], active: true });
   createToDo('Default Task', 'xx-xx-xx');
   renderProjects();
+  renderHeading();
 };
 
 const createToDo = (name, dueDate) => {
@@ -48,6 +53,16 @@ function renderProjects() {
   });
 }
 
+function renderHeading() {
+  const projectEditIcon = document.createElement('div');
+  projectEditIcon.id = 'title-edit';
+  projectName.textContent = activeProject().name;
+  projectName.appendChild(projectEditIcon);
+  projectDesc.textContent = activeProject().desc;
+  editProjectName.value = activeProject().name;
+  editProjectDesc.value = activeProject().desc;
+}
+
 function createProjectbtnListeners() {
   const projects = document.querySelectorAll('.project');
   projects.forEach((btn) =>
@@ -57,7 +72,5 @@ function createProjectbtnListeners() {
   );
 }
 
-/* 
-createProject('Default-Project', 'An Example Project');
-createToDo('test', 'test');
-*/
+/* createProject('Default-Project', 'An Example Project');
+createToDo('test', 'test'); */

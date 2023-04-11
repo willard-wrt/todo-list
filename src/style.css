@@ -256,6 +256,14 @@ background-color: #99f6e4;
   cursor: pointer;
 }
 
+.checked {
+  background-color: #10b981;
+  background-image: url(/src/imgs/todo-done.png);
+  background-size: 18px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 #add-task {
   display: flex;
   align-items: center;
