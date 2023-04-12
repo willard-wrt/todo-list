@@ -1,7 +1,9 @@
 import './style.css';
+import moment from 'moment';
 
 // console.log('webpack is working');
 const projectContainer = document.querySelector('#project-titles');
+const taskContainer = document.querySelector('#tasks-container');
 const projectName = document.querySelector('#main-name');
 const projectDesc = document.querySelector('#main-desc');
 const editProjectName = document.querySelector('#edit-project-name');
@@ -10,9 +12,10 @@ const editProjectDesc = document.querySelector('#edit-project-desc');
 const projectStorage = [];
 const createProject = (name, desc) => {
   projectStorage.push({ name, desc, toDoList: [], active: true });
-  createToDo('Default Task', 'xx-xx-xx');
+  createToDo('Default Task', '2023-05-05');
   renderProjects();
   renderHeading();
+  renderTodo();
 };
 
 const createToDo = (name, dueDate) => {
@@ -35,6 +38,11 @@ function switchActiveProject(index) {
 function _clearProject() {
   projectContainer.innerHTML = '';
 }
+
+function _clearToDo() {
+  taskContainer.innerHTML = '';
+}
+
 function _clearActiveProjects() {
   projectStorage.forEach((project) => (project.active = false));
 }
@@ -63,6 +71,82 @@ function renderHeading() {
   editProjectDesc.value = activeProject().desc;
 }
 
+function renderTodo() {
+  _clearToDo();
+  activeProject().toDoList.forEach((item, index) => {
+    const toDo = document.createElement('div');
+    toDo.classList.add('todo');
+    toDo.dataset.value = index;
+
+    const leftTodo = document.createElement('div');
+    leftTodo.classList.add('left-todo');
+
+    const checkbox = document.createElement('div');
+    checkbox.classList.add('checkbox');
+    if (item.complete) {
+      checkbox.classList.add('checked');
+    }
+    leftTodo.appendChild(checkbox);
+
+    const taskName = document.createElement('div');
+    taskName.classList.add('taskname');
+    taskName.textContent = item.name;
+    leftTodo.appendChild(taskName);
+
+    toDo.appendChild(leftTodo);
+
+    const leftToDoEdit = document.createElement('div');
+    leftToDoEdit.classList.add('left-todo-edit');
+
+    const addTask = document.createElement('input');
+    addTask.classList.add('add-task-name');
+    addTask.type = 'text';
+    addTask.placeholder = 'Task Name';
+
+    leftToDoEdit.appendChild(addTask);
+    toDo.appendChild(leftToDoEdit);
+
+    const rightToDo = document.createElement('div');
+    rightToDo.classList.add('right-todo');
+
+    const taskTime = document.createElement('div');
+    taskTime.classList.add('task-date');
+    taskTime.textContent = moment(item.dueDate, 'YYYY-MM-DD').fromNow();
+    rightToDo.appendChild(taskTime);
+
+    const taskEdit = document.createElement('div');
+    taskEdit.classList.add('task-edit-icon');
+    rightToDo.appendChild(taskEdit);
+
+    const taskDel = document.createElement('div');
+    taskDel.classList.add('task-bin-icon');
+    rightToDo.appendChild(taskDel);
+
+    toDo.appendChild(rightToDo);
+
+    const rightToDoEdit = document.createElement('div');
+    rightToDoEdit.classList.add('right-todo-edit');
+
+    const addTaskDate = document.createElement('input');
+    addTaskDate.classList.add('add-task-date');
+    rightToDoEdit.appendChild(addTaskDate);
+
+    const addTaskBtns = document.createElement('div');
+    rightToDoEdit.appendChild(addTaskBtns);
+    const addTaskSubmit = document.createElement('p');
+    addTaskSubmit.classList.add('add-task-submit');
+    addTaskBtns.appendChild(addTaskSubmit);
+    const addTaskCancel = document.createElement('p');
+    addTaskCancel.classList.add('add-task-cancel');
+    addTaskBtns.appendChild(addTaskCancel);
+
+    rightToDoEdit.appendChild(addTaskBtns);
+    toDo.appendChild(rightToDoEdit);
+
+    taskContainer.appendChild(toDo);
+  });
+}
+
 function createProjectbtnListeners() {
   const projects = document.querySelectorAll('.project');
   projects.forEach((btn) =>
@@ -72,5 +156,4 @@ function createProjectbtnListeners() {
   );
 }
 
-/* createProject('Default-Project', 'An Example Project');
-createToDo('test', 'test'); */
+// createProject('Default-Project', 'An Example Project');
