@@ -11,6 +11,7 @@ const editProjectDesc = document.querySelector('#edit-project-desc');
 
 const projectStorage = [];
 const createProject = (name, desc) => {
+  _clearActiveProjects();
   projectStorage.push({ name, desc, toDoList: [], active: true });
   createToDo('Default Task', '2023-05-05');
   renderProjects();
@@ -31,9 +32,9 @@ function activeProject() {
 function switchActiveProject(index) {
   _clearActiveProjects();
   projectStorage[index].active = true;
-  // renderProjects();
-  // renderHeading();
-  // renderTodo();
+  renderProjects();
+  renderHeading();
+  renderTodo();
 }
 function _clearProject() {
   projectContainer.innerHTML = '';
@@ -45,6 +46,14 @@ function _clearToDo() {
 
 function _clearActiveProjects() {
   projectStorage.forEach((project) => (project.active = false));
+}
+
+function completeTodo(index) {
+  activeProject().toDoList[index].complete = true;
+}
+
+function incompleteTodo(index) {
+  activeProject().toDoList[index].complete = false;
 }
 
 function renderProjects() {
@@ -59,6 +68,7 @@ function renderProjects() {
     projects.textContent = project.name;
     projectContainer.appendChild(projects);
   });
+  createProjectBtnListeners();
 }
 
 function renderHeading() {
@@ -145,9 +155,10 @@ function renderTodo() {
 
     taskContainer.appendChild(toDo);
   });
+  createToDoBtnListeners();
 }
 
-function createProjectbtnListeners() {
+function createProjectBtnListeners() {
   const projects = document.querySelectorAll('.project');
   projects.forEach((btn) =>
     btn.addEventListener('click', (e) => {
@@ -156,4 +167,51 @@ function createProjectbtnListeners() {
   );
 }
 
-// createProject('Default-Project', 'An Example Project');
+function createToDoBtnListeners() {
+  const checkbox = document.querySelectorAll('.checkbox');
+  checkbox.forEach((btn) =>
+    btn.addEventListener('click', (e) => {
+      if (e.target.classList.contains('checked')) {
+        incompleteTodo(e.target.parentNode.parentNode.dataset.value);
+      } else {
+        completeTodo(e.target.parentNode.parentNode.dataset.value);
+      }
+      renderTodo();
+    })
+  );
+}
+
+const newProjectDom = (() => {
+  const newProjectBtn = document.querySelector('#add-project');
+  const submitProjectBtn = document.querySelector('#project-add-submit');
+  const cancelProjectBtn = document.querySelector('#project-add-cancel');
+  const _newProjectWindow = document.querySelector('#window-container');
+  const _projectNameInput = document.querySelector('#project-name');
+  const _projectDescInput = document.querySelector('#project-desc');
+  function show() {
+    _newProjectWindow.style.display = 'flex';
+  }
+  function hide() {
+    _newProjectWindow.style.display = 'none';
+  }
+  function add() {
+    if (_projectNameInput.value !== '' && _projectDescInput.value !== '') {
+      createProject(_projectNameInput.value, _projectDescInput.value);
+      hide();
+    }
+  }
+  return {
+    show,
+    hide,
+    add,
+    newProjectBtn,
+    submitProjectBtn,
+    cancelProjectBtn,
+  };
+})();
+
+newProjectDom.newProjectBtn.addEventListener('click', newProjectDom.show);
+newProjectDom.cancelProjectBtn.addEventListener('click', newProjectDom.hide);
+newProjectDom.submitProjectBtn.addEventListener('click', newProjectDom.add);
+
+createProject('Default-Project', 'An Example Project');
