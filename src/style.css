@@ -15,6 +15,7 @@ body {
 
 input, textarea {
   outline: none;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #project-sidebar {
@@ -203,20 +204,20 @@ main {
 
 #project-edit-submit,
 .add-task-submit, .form-task-submit{
-  background-color: lightgreen;
+  background-color: #7dd3fc;
 }
 
 #project-add-submit {
-background-color: #99f6e4;
+background-color: #7dd3fc;
 }
 
 #project-edit-cancel,
 .add-task-cancel, .form-task-cancel {
-  background-color: palevioletred;
+  background-color: #f9a8d4;
 }
 
 #project-add-cancel {
-  background-color: #fecdd3;
+  background-color: #f9a8d4;
 }
 .todo {
   width: max(75%, 800px);
