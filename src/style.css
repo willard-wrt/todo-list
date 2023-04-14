@@ -202,7 +202,7 @@ main {
 }
 
 #project-edit-submit,
-.add-task-submit {
+.add-task-submit, .form-task-submit{
   background-color: lightgreen;
 }
 
@@ -211,7 +211,7 @@ background-color: #99f6e4;
 }
 
 #project-edit-cancel,
-.add-task-cancel {
+.add-task-cancel, .form-task-cancel {
   background-color: palevioletred;
 }
 
@@ -277,7 +277,7 @@ background-color: #99f6e4;
   background-color: #d4d4d8;
 }
 
-.add-task-name {
+.add-task-name, .form-task-name {
   border: 2px solid rgb(255, 255, 255);
   border-radius: 2px;
   height: 40px;
@@ -300,6 +300,7 @@ background-color: #99f6e4;
 #right-add-task, .right-todo-edit {
   display: flex;
 }
+
 
 .left-todo-edit, .right-todo-edit {
   display: none;

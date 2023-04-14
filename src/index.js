@@ -139,14 +139,18 @@ function renderTodo() {
 
     const addTaskDate = document.createElement('input');
     addTaskDate.classList.add('add-task-date');
+    addTaskDate.type = 'date';
     rightToDoEdit.appendChild(addTaskDate);
 
     const addTaskBtns = document.createElement('div');
+    addTaskBtns.id = 'add-task-btns';
     rightToDoEdit.appendChild(addTaskBtns);
     const addTaskSubmit = document.createElement('p');
+    addTaskSubmit.textContent = 'Submit';
     addTaskSubmit.classList.add('add-task-submit');
     addTaskBtns.appendChild(addTaskSubmit);
     const addTaskCancel = document.createElement('p');
+    addTaskCancel.textContent = 'Cancel';
     addTaskCancel.classList.add('add-task-cancel');
     addTaskBtns.appendChild(addTaskCancel);
 
@@ -179,6 +183,31 @@ function createToDoBtnListeners() {
       renderTodo();
     })
   );
+  const taskEdit = document.querySelectorAll('.task-edit-icon');
+  taskEdit.forEach((btn) =>
+    btn.addEventListener('click', (e) => {
+      editToDo.show(e.target.parentNode.parentNode.dataset.value);
+    })
+  );
+  const taskDel = document.querySelectorAll('.task-bin-icon');
+  taskDel.forEach((btn) =>
+    btn.addEventListener('click', (e) => {
+      editToDo.del(e.target.parentNode.parentNode.dataset.value);
+    })
+  );
+
+  const taskEditCancel = document.querySelectorAll('.add-task-cancel');
+  taskEditCancel.forEach((btn) =>
+    btn.addEventListener('click', (e) => {
+      editToDo.hide(e.target.parentNode.parentNode.parentNode.dataset.value);
+    })
+  );
+  const taskEditSubmit = document.querySelectorAll('.add-task-submit');
+  taskEditSubmit.forEach((btn) =>
+    btn.addEventListener('click', (e) => {
+      editToDo.submit(e.target.parentNode.parentNode.parentNode.dataset.value);
+    })
+  );
 }
 
 const newProjectDom = (() => {
@@ -193,7 +222,13 @@ const newProjectDom = (() => {
   }
   function hide() {
     _newProjectWindow.style.display = 'none';
+    _clear();
   }
+  function _clear() {
+    _projectNameInput.value = '';
+    _projectDescInput.value = '';
+  }
+
   function add() {
     if (_projectNameInput.value !== '' && _projectDescInput.value !== '') {
       createProject(_projectNameInput.value, _projectDescInput.value);
@@ -210,8 +245,86 @@ const newProjectDom = (() => {
   };
 })();
 
+const editToDo = (() => {
+  function show(index) {
+    const _leftToDo = document.querySelectorAll('.left-todo');
+    const _rightToDo = document.querySelectorAll('.right-todo');
+    const _leftToDoEdit = document.querySelectorAll('.left-todo-edit');
+    const _rightToDoEdit = document.querySelectorAll('.right-todo-edit');
+    _leftToDo[index].style.display = 'none';
+    _rightToDo[index].style.display = 'none';
+    _leftToDoEdit[index].style.display = 'flex';
+    _rightToDoEdit[index].style.display = 'flex';
+  }
+
+  function hide(index) {
+    const _leftToDo = document.querySelectorAll('.left-todo');
+    const _rightToDo = document.querySelectorAll('.right-todo');
+    const _leftToDoEdit = document.querySelectorAll('.left-todo-edit');
+    const _rightToDoEdit = document.querySelectorAll('.right-todo-edit');
+    _leftToDo[index].style.display = 'flex';
+    _rightToDo[index].style.display = 'flex';
+    _leftToDoEdit[index].style.display = 'none';
+    _rightToDoEdit[index].style.display = 'none';
+  }
+
+  function submit(index) {
+    const _toDoName = document.querySelectorAll('.add-task-name');
+    const _toDoDate = document.querySelectorAll('.add-task-date');
+    if (_toDoName[index].value !== '' && _toDoDate[index].value !== '') {
+      activeProject().toDoList[index].name = _toDoName[index].value;
+      activeProject().toDoList[index].dueDate = _toDoDate[index].value;
+      renderTodo();
+    }
+  }
+
+  function del(index) {
+    activeProject().toDoList.splice(index, 1);
+    renderTodo();
+  }
+
+  return { show, hide, submit, del };
+})();
+
+const addToDo = (() => {
+  const addTask = document.querySelector('#add-task');
+  const addTaskSubmit = document.querySelector('.form-task-submit');
+  const addTaskCancel = document.querySelector('.form-task-cancel');
+  const _addTaskForm = document.querySelector('#add-task-form');
+  const _addTaskName = document.querySelector('.form-task-name');
+  const _addTaskDate = document.querySelector('.form-task-date');
+
+  function show() {
+    _addTaskForm.style.display = 'flex';
+    addTask.style.display = 'none';
+  }
+
+  function hide() {
+    addTask.style.display = 'flex';
+    _addTaskForm.style.display = 'none';
+    _clear();
+  }
+
+  function _clear() {
+    _addTaskName.value = '';
+    _addTaskDate.value = '';
+  }
+
+  function submit() {
+    if (_addTaskName.value !== '' && _addTaskDate.value !== '') {
+      createToDo(_addTaskName.value, _addTaskDate.value);
+      hide();
+      renderTodo();
+    }
+  }
+  return { addTask, addTaskSubmit, addTaskCancel, show, hide, submit };
+})();
+
 newProjectDom.newProjectBtn.addEventListener('click', newProjectDom.show);
 newProjectDom.cancelProjectBtn.addEventListener('click', newProjectDom.hide);
 newProjectDom.submitProjectBtn.addEventListener('click', newProjectDom.add);
+addToDo.addTask.addEventListener('click', addToDo.show);
+addToDo.addTaskSubmit.addEventListener('click', addToDo.submit);
+addToDo.addTaskCancel.addEventListener('click', addToDo.hide);
 
 createProject('Default-Project', 'An Example Project');
