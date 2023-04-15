@@ -360,6 +360,17 @@ const addToDo = (() => {
   return { addTask, addTaskSubmit, addTaskCancel, show, hide, submit };
 })();
 
+const sidebarBgController = (() => {
+  const sidebar = document.querySelector('#project-sidebar');
+  const sidebarBG = document.querySelector('#sidebar-bg');
+  sidebar.onmouseover = function () {
+    sidebarBG.style.opacity = '100%';
+  };
+  sidebar.onmouseout = function () {
+    sidebarBG.style.opacity = '65%';
+  };
+})();
+
 newProjectDom.newProjectBtn.addEventListener('click', newProjectDom.show);
 newProjectDom.cancelProjectBtn.addEventListener('click', newProjectDom.hide);
 newProjectDom.submitProjectBtn.addEventListener('click', newProjectDom.add);
