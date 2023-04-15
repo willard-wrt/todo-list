@@ -20,7 +20,11 @@ const createProject = (name, desc) => {
 };
 
 const createToDo = (name, dueDate) => {
-  activeProject().toDoList.push({ name, dueDate, complete: false });
+  if (activeProject().toDoList.length === 0) {
+    activeProject().toDoList.push({ name, dueDate, complete: true });
+  } else {
+    activeProject().toDoList.push({ name, dueDate, complete: false });
+  }
 };
 
 function activeProject() {
@@ -118,7 +122,10 @@ function renderTodo() {
 
     const taskTime = document.createElement('div');
     taskTime.classList.add('task-date');
-    taskTime.textContent = moment(item.dueDate, 'YYYY-MM-DD').fromNow();
+    taskTime.textContent = `${moment(
+      item.dueDate,
+      'YYYY-MM-DD'
+    ).fromNow()} (${moment(item.dueDate).toString().slice(4, 15)})`;
     rightToDo.appendChild(taskTime);
 
     const taskEdit = document.createElement('div');
