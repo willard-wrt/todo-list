@@ -4,7 +4,7 @@ import moment from 'moment';
 // console.log('webpack is working');
 const projectContainer = document.querySelector('#project-titles');
 const taskContainer = document.querySelector('#tasks-container');
-const projectName = document.querySelector('#main-name');
+const projectName = document.querySelector('#main-title');
 const projectDesc = document.querySelector('#main-desc');
 const editProjectName = document.querySelector('#edit-project-name');
 const editProjectDesc = document.querySelector('#edit-project-desc');
@@ -72,10 +72,7 @@ function renderProjects() {
 }
 
 function renderHeading() {
-  const projectEditIcon = document.createElement('div');
-  projectEditIcon.id = 'title-edit';
-  projectName.textContent = activeProject().name;
-  projectName.appendChild(projectEditIcon);
+  projectName.innerText = activeProject().name;
   projectDesc.textContent = activeProject().desc;
   editProjectName.value = activeProject().name;
   editProjectDesc.value = activeProject().desc;
@@ -286,6 +283,42 @@ const editToDo = (() => {
   return { show, hide, submit, del };
 })();
 
+const editProjectDom = (() => {
+  const titleEditBtn = document.querySelector('#title-edit');
+  const _projectInfoBox = document.querySelector('#project-info-container');
+  const _projectEditBox = document.querySelector('#project-edit-container');
+  const projectEditSubmit = document.querySelector('#project-edit-submit');
+  const projectEditCancel = document.querySelector('#project-edit-cancel');
+
+  function show() {
+    _projectInfoBox.style.display = 'none';
+    _projectEditBox.style.display = 'flex';
+  }
+
+  function hide() {
+    _projectInfoBox.style.display = 'flex';
+    _projectEditBox.style.display = 'none';
+    renderHeading();
+  }
+
+  function submit() {
+    activeProject().name = editProjectName.value;
+    activeProject().desc = editProjectDesc.value;
+    renderProjects();
+    renderHeading();
+    hide();
+  }
+
+  return {
+    show,
+    hide,
+    submit,
+    titleEditBtn,
+    projectEditSubmit,
+    projectEditCancel,
+  };
+})();
+
 const addToDo = (() => {
   const addTask = document.querySelector('#add-task');
   const addTaskSubmit = document.querySelector('.form-task-submit');
@@ -323,6 +356,12 @@ const addToDo = (() => {
 newProjectDom.newProjectBtn.addEventListener('click', newProjectDom.show);
 newProjectDom.cancelProjectBtn.addEventListener('click', newProjectDom.hide);
 newProjectDom.submitProjectBtn.addEventListener('click', newProjectDom.add);
+editProjectDom.titleEditBtn.addEventListener('click', editProjectDom.show);
+editProjectDom.projectEditSubmit.addEventListener(
+  'click',
+  editProjectDom.submit
+);
+editProjectDom.projectEditCancel.addEventListener('click', editProjectDom.hide);
 addToDo.addTask.addEventListener('click', addToDo.show);
 addToDo.addTaskSubmit.addEventListener('click', addToDo.submit);
 addToDo.addTaskCancel.addEventListener('click', addToDo.hide);
