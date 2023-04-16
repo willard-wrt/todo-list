@@ -376,10 +376,10 @@ const sidebarBgController = (() => {
   const sidebar = document.querySelector('#project-sidebar');
   const sidebarBG = document.querySelector('#sidebar-bg');
   sidebar.onmouseover = function () {
-    sidebarBG.style.opacity = '80%';
+    sidebarBG.style.opacity = '40%';
   };
   sidebar.onmouseout = function () {
-    sidebarBG.style.opacity = '35%';
+    sidebarBG.style.opacity = '90%';
   };
 })();
 
