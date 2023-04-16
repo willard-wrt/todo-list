@@ -9,7 +9,7 @@ const projectDesc = document.querySelector('#main-desc');
 const editProjectName = document.querySelector('#edit-project-name');
 const editProjectDesc = document.querySelector('#edit-project-desc');
 
-const projectStorage = [];
+let projectStorage = [];
 const createProject = (name, desc) => {
   _clearActiveProjects();
   projectStorage.push({ name, desc, toDoList: [], active: true });
@@ -39,6 +39,7 @@ function switchActiveProject(index) {
   renderProjects();
   renderHeading();
   renderTodo();
+  storeMyProjects();
 }
 function _clearProject() {
   projectContainer.innerHTML = '';
@@ -54,10 +55,12 @@ function _clearActiveProjects() {
 
 function completeTodo(index) {
   activeProject().toDoList[index].complete = true;
+  storeMyProjects();
 }
 
 function incompleteTodo(index) {
   activeProject().toDoList[index].complete = false;
+  storeMyProjects();
 }
 
 function renderProjects() {
@@ -236,6 +239,7 @@ const newProjectDom = (() => {
   function add() {
     if (_projectNameInput.value !== '' && _projectDescInput.value !== '') {
       createProject(_projectNameInput.value, _projectDescInput.value);
+      storeMyProjects();
       hide();
     }
   }
@@ -255,10 +259,15 @@ const editToDo = (() => {
     const _rightToDo = document.querySelectorAll('.right-todo');
     const _leftToDoEdit = document.querySelectorAll('.left-todo-edit');
     const _rightToDoEdit = document.querySelectorAll('.right-todo-edit');
+    const _nameInput = document.querySelectorAll('.add-task-name');
+    const _dateInput = document.querySelectorAll('.add-task-date');
+
     _leftToDo[index].style.display = 'none';
     _rightToDo[index].style.display = 'none';
     _leftToDoEdit[index].style.display = 'flex';
     _rightToDoEdit[index].style.display = 'flex';
+    _nameInput[index].value = activeProject().toDoList[index].name;
+    _dateInput[index].value = activeProject().toDoList[index].dueDate;
   }
 
   function hide(index) {
@@ -279,6 +288,7 @@ const editToDo = (() => {
       activeProject().toDoList[index].name = _toDoName[index].value;
       activeProject().toDoList[index].dueDate = _toDoDate[index].value;
       renderTodo();
+      storeMyProjects();
     }
   }
 
@@ -313,6 +323,7 @@ const editProjectDom = (() => {
     activeProject().desc = editProjectDesc.value;
     renderProjects();
     renderHeading();
+    storeMyProjects();
     hide();
   }
 
@@ -353,8 +364,9 @@ const addToDo = (() => {
   function submit() {
     if (_addTaskName.value !== '' && _addTaskDate.value !== '') {
       createToDo(_addTaskName.value, _addTaskDate.value);
-      hide();
       renderTodo();
+      storeMyProjects();
+      hide();
     }
   }
   return { addTask, addTaskSubmit, addTaskCancel, show, hide, submit };
@@ -364,12 +376,16 @@ const sidebarBgController = (() => {
   const sidebar = document.querySelector('#project-sidebar');
   const sidebarBG = document.querySelector('#sidebar-bg');
   sidebar.onmouseover = function () {
-    sidebarBG.style.opacity = '100%';
+    sidebarBG.style.opacity = '80%';
   };
   sidebar.onmouseout = function () {
-    sidebarBG.style.opacity = '65%';
+    sidebarBG.style.opacity = '35%';
   };
 })();
+
+function storeMyProjects() {
+  window.localStorage.setItem('guest', JSON.stringify(projectStorage));
+}
 
 newProjectDom.newProjectBtn.addEventListener('click', newProjectDom.show);
 newProjectDom.cancelProjectBtn.addEventListener('click', newProjectDom.hide);
@@ -384,4 +400,11 @@ addToDo.addTask.addEventListener('click', addToDo.show);
 addToDo.addTaskSubmit.addEventListener('click', addToDo.submit);
 addToDo.addTaskCancel.addEventListener('click', addToDo.hide);
 
-createProject('Default-Project', 'An Example Project');
+if (localStorage.getItem('guest') == null) {
+  createProject('Default-Project', 'An Example Project');
+} else {
+  projectStorage = JSON.parse(window.localStorage.getItem('guest'));
+  renderProjects();
+  renderHeading();
+  renderTodo();
+}

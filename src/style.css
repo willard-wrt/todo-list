@@ -32,12 +32,16 @@ textarea {
   position: relative;
 }
 
+#project-titles, #add-project-container {
+  z-index: 10;
+}
+
 #sidebar-bg{
   background-image: url(/src/imgs/rubik.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 80%;
-  opacity: 70%;
+  opacity: 35%;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -93,6 +97,7 @@ footer p {
   margin-top: 20px;
   margin-bottom: 20px;
   background-color: white;
+  z-index: 10;
 }
 
 main .divider {
