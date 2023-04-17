@@ -8,6 +8,7 @@ const projectName = document.querySelector('#main-title');
 const projectDesc = document.querySelector('#main-desc');
 const editProjectName = document.querySelector('#edit-project-name');
 const editProjectDesc = document.querySelector('#edit-project-desc');
+const delProject = document.querySelector('#del-project');
 
 let projectStorage = [];
 const createProject = (name, desc) => {
@@ -31,6 +32,15 @@ function activeProject() {
   // eslint-disable-next-line prefer-const
   let activeProjectArray = projectStorage.filter((project) => project.active);
   return activeProjectArray[0];
+}
+
+function deleteProject(index) {
+  projectStorage.splice(index, 1);
+  projectStorage[0].active = true;
+  renderProjects();
+  renderHeading();
+  renderTodo();
+  storeMyProjects();
 }
 
 function switchActiveProject(index) {
@@ -400,6 +410,10 @@ addToDo.addTask.addEventListener('click', addToDo.show);
 addToDo.addTaskSubmit.addEventListener('click', addToDo.submit);
 addToDo.addTaskCancel.addEventListener('click', addToDo.hide);
 
+delProject.addEventListener('click', () => {
+  deleteProject(projectStorage.indexOf(activeProject()));
+});
+
 if (localStorage.getItem('guest') == null) {
   createProject('Default-Project', 'An Example Project');
 } else {
@@ -408,3 +422,5 @@ if (localStorage.getItem('guest') == null) {
   renderHeading();
   renderTodo();
 }
+
+// console.log(projectStorage.indexOf(activeProject()));
