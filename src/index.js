@@ -14,7 +14,13 @@ let projectStorage = [];
 const createProject = (name, desc) => {
   _clearActiveProjects();
   projectStorage.push({ name, desc, toDoList: [], active: true });
-  createToDo('Default Task', '2023-05-05');
+  console.log(projectStorage.length);
+  if (
+    projectStorage.length > 1 ||
+    projectStorage[0].name == 'Default-Project'
+  ) {
+    createToDo('Default Task', '2023-05-05');
+  }
   renderProjects();
   renderHeading();
   renderTodo();
@@ -45,7 +51,10 @@ function deleteProject(index) {
 
   function createDefault() {
     if (projectStorage.length === 0) {
-      createProject('Default-Project', 'An Example Project');
+      createProject(
+        'You can start from here =>',
+        'Please edit this project or create a new project'
+      );
     }
   }
 }
@@ -312,6 +321,7 @@ const editToDo = (() => {
   function del(index) {
     activeProject().toDoList.splice(index, 1);
     renderTodo();
+    storeMyProjects();
   }
 
   return { show, hide, submit, del };
