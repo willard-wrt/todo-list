@@ -36,11 +36,18 @@ function activeProject() {
 
 function deleteProject(index) {
   projectStorage.splice(index, 1);
+  createDefault();
   projectStorage[0].active = true;
   renderProjects();
   renderHeading();
   renderTodo();
   storeMyProjects();
+
+  function createDefault() {
+    if (projectStorage.length === 0) {
+      createProject('Default-Project', 'An Example Project');
+    }
+  }
 }
 
 function switchActiveProject(index) {

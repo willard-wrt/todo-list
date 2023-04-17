@@ -365,6 +365,12 @@ main {
   font-size: 22px;
 }
 
+.add-task-date, .form-task-date {
+  text-align: center;
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+
 #add-task-btns {
   margin-left: 15px;
 }
